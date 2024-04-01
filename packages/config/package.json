@@ -1,0 +1,9 @@
+{
+  "name": "@zabukit/config",
+  "private": true,
+  "exports": {
+    "./postcss": {},
+    "./babel": {},
+    "./typescript/*": "./tsconfig.*.json"
+  }
+}

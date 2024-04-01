@@ -1,0 +1,30 @@
+name: Test pull request
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, reopened]
+
+concurrency:
+  group: test-pull-request
+  cancel-in-progress: true
+
+jobs:
+  test-pull-request-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Regenerate node_modules from cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .yarn
+            **/node_modules
+          key: ${{ runner.os }}-install-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install project dependencies
+        run: yarn install --immutable
+
+      - name: Run templates testing
+        run: yarn workspace @zabukit/automation templates test

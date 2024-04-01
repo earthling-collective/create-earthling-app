@@ -1,0 +1,39 @@
+name: Weekly automation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 0"
+
+concurrency:
+  group: weekly-automation
+  cancel-in-progress: true
+
+jobs:
+  weekly-automation-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Regenerate node_modules from cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .yarn
+            **/node_modules
+          key: ${{ runner.os }}-install-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install project dependencies
+        run: yarn install --immutable
+
+      - name: run templates updater
+        run: yarn workspace @zabukit/automation templates generate
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          branch-suffix: short-commit-hash
+          commit-message: Update templates
+          committer: weekly-automation-workflow<sfrady20@gmail.com>
+          delete-branch: true
+          token: ${{ secrets.PAT }}

@@ -1,0 +1,7 @@
+{
+  "name": "zabukit-monorepo",
+  "private": true,
+  "workspaces": ["packages/*", "templates/*"],
+  "devDependencies": { "@zabukit/config": "workspace:^" },
+  "packageManager": "yarn@4.1.1"
+}
