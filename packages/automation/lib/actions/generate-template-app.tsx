@@ -6,7 +6,7 @@ export async function generateTemplateApp(options?: GenerateTemplateOptions) {
 
   //run create cmd
   shell.exec(
-    `yarn create expo-app -t expo-template-blank-typescript template-app`
+    `bun create expo-app --template expo-template-blank-typescript template-app`
   );
 
   console.log(`✅ App template generated`);

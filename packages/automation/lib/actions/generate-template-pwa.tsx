@@ -6,7 +6,7 @@ export async function generateTemplatePwa(options?: GenerateTemplateOptions) {
 
   //run create cmd
   shell.exec(
-    `yarn create next-app template-pwa --ts --tailwind --app --src-dir --no-eslint --no-tailwind --import-alias "@/*"`
+    `bun create next-app template-pwa --ts --tailwind --app --src-dir --no-eslint --no-tailwind --import-alias "@/*"`
   );
 
   console.log(`✅ PWA template generated`);

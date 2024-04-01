@@ -1,12 +1,11 @@
-import { build } from "tsup";
 import { importTemplates } from "@/actions/import-templates";
+import { OUT_DIR } from "@/vars";
 
-//run tsup
-build({
-  entry: ["./src/index.ts"],
-  format: ["cjs"],
+Bun.build({
+  entrypoints: ["./src/index.ts"],
+  outdir: OUT_DIR,
+  target: "node",
 }).then(async () => {
-  console.log(`tsup finished`);
-
+  console.log(`build complete, importing templates`);
   await importTemplates();
 });

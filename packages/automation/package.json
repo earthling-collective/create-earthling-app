@@ -18,8 +18,8 @@
   "bin": "dist/index.cjs",
   "files": ["dist", "README.md"],
   "scripts": {
-    "repo": "tsx scripts/repo",
-    "templates": "tsx scripts/templates"
+    "repo": "bun scripts/repo.ts",
+    "templates": "bun scripts/templates.ts"
   },
   "devDependencies": {
     "@types/inquirer": "^9",
@@ -27,7 +27,7 @@
     "@types/micromatch": "^4.0.6",
     "@types/node": "^20.10.0",
     "@types/shelljs": "^0.8.15",
-    "@zabukit/config": "workspace:^",
+    "@zabukit/config": "workspace:*",
     "colors": "^1.4.0",
     "commander": "^12.0.0",
     "fast-glob": "^3.3.2",
@@ -40,7 +40,6 @@
     "shelljs": "^0.8.5",
     "sort-package-json": "^2.6.0",
     "tsup": "^8.0.1",
-    "tsx": "^4.7.1",
     "type-fest": "^4.14.0",
     "typescript": "^5.3.3",
     "yaml": "^2.4.1"
