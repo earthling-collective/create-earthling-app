@@ -1,6 +1,6 @@
 import shell from "shelljs";
 
-export async function generateTemplateSpa(options?: GenerateTemplateOptions) {
+export async function generateSpaTemplate(options?: GenerateTemplateOptions) {
   //clear existing template
   shell.rm("-rf", `./template-spa`);
 

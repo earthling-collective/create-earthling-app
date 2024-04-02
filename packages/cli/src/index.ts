@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Option, program } from "commander";
+import { program } from "commander";
 import pkg from "../package.json";
 import { init } from "./actions/init";
 
@@ -12,16 +12,11 @@ program
   .command("init")
   .argument("<name>")
   .option("-r, --repo")
-  .addOption(new Option("-t, --template <template>").default("default"))
+  .option("-t, --template <template>")
   .option("--verbose")
   .option("--ci")
-  .action(async (name, options) => {
-    try {
-      await init(name, options);
-    } catch (err) {
-      console.error(`❌`, err);
-    }
-  });
+  .option("--cwd <path>")
+  .action(init);
 
 program
   .command("register")

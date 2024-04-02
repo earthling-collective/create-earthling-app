@@ -1,34 +1,43 @@
 import shell from "shelljs";
 import { TEMPLATES_DIR } from "@/vars";
-import { generateTemplateSpa } from "./generate-template-spa";
-import { generateTemplatePwa } from "./generate-template-pwa";
-import { generateTemplateApp } from "./generate-template-app";
+import { generateSpaTemplate } from "./generate-template-spa";
+import { generatePwaTemplate } from "./generate-template-pwa";
+import { generateAppTemplate } from "./generate-template-app";
+import { generateRepoTemplate } from "./generate-template-repo";
 
 export async function generateTemplate(options?: GenerateTemplateOptions) {
   const { template, verbose } = options || {};
 
-  if (verbose)
-    console.log(`Setting working dir to templates dir (${TEMPLATES_DIR})`);
-  shell.cd(TEMPLATES_DIR);
+  if (verbose) console.log(`Templates dir: ${TEMPLATES_DIR}`);
 
   if (template) {
+    shell.cd(TEMPLATES_DIR);
+
     switch (template.toLocaleLowerCase()) {
       case "pwa":
-        return await generateTemplatePwa(options);
+        return await generatePwaTemplate(options);
       case "spa":
-        return await generateTemplateSpa(options);
+        return await generateSpaTemplate(options);
       case "app":
-        return await generateTemplateApp(options);
+        return await generateAppTemplate(options);
+      case "repo":
+        return await generateRepoTemplate(options);
       default:
         throw new Error(
           `Template "${template}" not found. Try using "pwa","spa" or "app".`
         );
     }
   } else {
-    await Promise.allSettled([
-      generateTemplateSpa(options),
-      generateTemplateApp(options),
-      generateTemplatePwa(options),
-    ]);
+    shell.cd(TEMPLATES_DIR);
+    await generateRepoTemplate(options);
+
+    shell.cd(TEMPLATES_DIR);
+    await generateSpaTemplate(options);
+
+    shell.cd(TEMPLATES_DIR);
+    await generateAppTemplate(options);
+
+    shell.cd(TEMPLATES_DIR);
+    await generatePwaTemplate(options);
   }
 }

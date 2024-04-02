@@ -1,6 +1,6 @@
 import shell from "shelljs";
 
-export async function generateTemplatePwa(options?: GenerateTemplateOptions) {
+export async function generatePwaTemplate(options?: GenerateTemplateOptions) {
   //clear existing template
   shell.rm("-rf", `./template-pwa`);
 

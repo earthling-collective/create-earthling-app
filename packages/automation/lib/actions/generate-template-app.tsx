@@ -1,6 +1,6 @@
 import shell from "shelljs";
 
-export async function generateTemplateApp(options?: GenerateTemplateOptions) {
+export async function generateAppTemplate(options?: GenerateTemplateOptions) {
   //clear existing template
   shell.rm("-rf", `./template-app`);
 
