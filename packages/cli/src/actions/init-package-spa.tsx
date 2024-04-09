@@ -1,3 +1,4 @@
+import { logger } from "@/services/logger";
 import { analyzeHierarchy } from "./analyze-hierarchy";
 
 export async function initPackageSpa(name: string, options: InitOptions) {
@@ -5,5 +6,5 @@ export async function initPackageSpa(name: string, options: InitOptions) {
 
   const {} = await analyzeHierarchy();
 
-  console.log(`✅ SPA package "${name}" initialized`);
+  logger.notice(`✅ SSR package "${name}" initialized`);
 }

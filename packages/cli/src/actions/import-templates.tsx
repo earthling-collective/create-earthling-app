@@ -3,6 +3,7 @@ import { readFile, readdir, stat, mkdir, cp, rm } from "fs/promises";
 import { Stats, existsSync } from "fs";
 import colors from "colors";
 import { TEMPLATES_DIR, TEMPLATES_OUT_DIR } from "../vars";
+import { logger } from "@/services/logger";
 
 export async function importTemplates() {
   //map templates
@@ -25,24 +26,24 @@ export async function importTemplates() {
           );
           return { name, path, stats, packageJson };
         } catch (err: any) {
-          console.error(err);
+          logger.error(err);
           return false;
         }
       })
     )
   ).filter((x) => !!x);
-  console.log(`templates mapped`);
+  logger.info(`templates mapped`);
 
   //clean templates out dir
   if (existsSync(TEMPLATES_OUT_DIR))
     await rm(TEMPLATES_OUT_DIR, { recursive: true });
   await mkdir(TEMPLATES_OUT_DIR, { recursive: true });
-  console.log(`templates out dir cleaned`);
+  logger.info(`templates out dir cleaned`);
 
   //copy templates
   await Promise.all(
     templates.map(async ({ name, path, packageJson, stats }) => {
-      console.log(`copying template "${colors.bold(name)}"`);
+      logger.info(`copying template "${colors.bold(name)}"`);
       await cp(path, join(TEMPLATES_OUT_DIR, name), {
         recursive: true,
         errorOnExist: false,

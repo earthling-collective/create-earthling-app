@@ -2,7 +2,7 @@ import shell from "shelljs";
 
 export async function generatePwaTemplate(options?: GenerateTemplateOptions) {
   //clear existing template
-  shell.rm("-rf", `./template-pwa`);
+  shell.rm("rf", `./template-pwa`);
 
   //run create cmd
   shell.exec(

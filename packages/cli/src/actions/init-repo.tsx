@@ -1,8 +1,8 @@
-import { mkdir } from "fs/promises";
 import { analyzeHierarchy } from "./analyze-hierarchy";
 import shell from "shelljs";
 import { TEMPLATES_OUT_DIR } from "@/vars";
 import { join } from "path";
+import { logger } from "@/services/logger";
 
 export async function initRepo(
   name: string,
@@ -22,7 +22,7 @@ export async function initRepo(
   shell.cp("-r", join(TEMPLATES_OUT_DIR, "template-repo"), `./${name}`);
 
   //
-  console.log(
+  logger.notice(
     `✅ repo "${name}" initialized${
       template !== "default" ? ` using template "${template}"` : ``
     }`

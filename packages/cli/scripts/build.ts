@@ -1,4 +1,5 @@
 import { importTemplates } from "@/actions/import-templates";
+import { logger } from "@/services/logger";
 import { OUT_DIR } from "@/vars";
 
 Bun.build({
@@ -6,6 +7,6 @@ Bun.build({
   outdir: OUT_DIR,
   target: "node",
 }).then(async () => {
-  console.log(`build complete, importing templates`);
+  logger.info(`build complete, importing templates`);
   await importTemplates();
 });

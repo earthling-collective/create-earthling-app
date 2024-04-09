@@ -2,7 +2,7 @@
 
 import { cleanRepo } from "@/actions/clean-repo";
 import { generateTemplate } from "@/actions/generate-template";
-import { Option, program } from "commander";
+import { program } from "commander";
 import pkg from "@/../package.json";
 
 program.name("🤖").description("").version(pkg.version);

@@ -1,31 +1,31 @@
 import { join, relative } from "path";
 import { analyzeHierarchy } from "./analyze-hierarchy";
-import { initPackageSpa } from "./init-package-spa";
-import { initPackageSsr } from "./init-package-ssr";
 import { minimatch } from "minimatch";
 import inquirer from "inquirer";
 import shell from "shelljs";
+import { logger } from "@/services/logger";
+import { initPackageSpa } from "./init-package-spa";
+import { initPackagePwa } from "./init-package-pwa";
+import { readdir } from "fs/promises";
+import { existsSync } from "fs";
 
 export async function initPackage(name: string, options: InitOptions) {
-  const { template = "default", ci, verbose } = options;
+  const { template = "default", ci } = options;
 
   //TODO this makes it possible to test in dev, should remove though
   shell.cd("../");
 
-  const { packageDir } = await analyzeHierarchy({ verbose });
+  const { packageDir } = await analyzeHierarchy();
+  const targetDir = join(process.cwd(), `/${name}`);
 
   //if workspaces are found, initialize as a workspace
   const workspaces = packageDir?.package?.workspaces;
   if (packageDir) {
-    const relativePath = relative(
-      packageDir.location,
-      join(process.cwd(), `./${name}`)
-    );
+    const relativePath = relative(packageDir.location, targetDir);
 
-    if (verbose)
-      console.log(
-        `attemping to init package inside ${packageDir.package?.name} at "${relativePath}"`
-      );
+    logger.verbose(
+      `attemping to init package inside ${packageDir.package?.name} at "${relativePath}"`
+    );
 
     const locationMatchesWorkspace =
       Array.isArray(workspaces) &&
@@ -51,12 +51,33 @@ export async function initPackage(name: string, options: InitOptions) {
     }
   }
 
+  //check if dir exists and remove if confirmed
+  if (existsSync(targetDir) && (await readdir(targetDir)).length > 1) {
+    const shouldDeleteInitDir = ci
+      ? true
+      : (
+          await inquirer.prompt([
+            {
+              name: "shouldDeleteDir",
+              type: "confirm",
+              message: `Content already exists at "${targetDir}". Would you like to delete these files before initializing a new project?`,
+            },
+          ])
+        ).shouldDeleteDir;
+
+    if (shouldDeleteInitDir) {
+      await shell.rm(`-rf`, targetDir);
+      logger.notice(`Content from "${targetDir}" has been deleted.`);
+    }
+  }
+
   switch (template.toLocaleLowerCase()) {
-    case "default":
-    case "ssr":
-      return await initPackageSsr(name, options);
+    case "pwa":
+      return await initPackagePwa(name, options);
     case "spa":
       return await initPackageSpa(name, options);
+    // case "app":
+    //   return await initPackageSpa(name, options);
     default:
       throw new Error(
         `Template "${template}" not found. Try using "ssr" or "spa".`

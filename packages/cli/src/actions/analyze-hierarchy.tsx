@@ -1,3 +1,4 @@
+import { logger } from "@/services/logger";
 import { findUpMultiple, pathExistsSync } from "find-up";
 import { readFileSync, existsSync } from "fs";
 import merge from "lodash/merge";
@@ -16,9 +17,7 @@ type Dir = {
 
 type GitRepo = {};
 
-export async function analyzeHierarchy(options?: { verbose?: boolean }) {
-  const { verbose } = options || {};
-
+export async function analyzeHierarchy() {
   let combinedRc: ZabuKitRc = {};
 
   let repoDir = null as Dir | null;
@@ -89,13 +88,12 @@ export async function analyzeHierarchy(options?: { verbose?: boolean }) {
     })
     .filter((x) => !!x) as Dir[];
 
-  if (verbose)
-    console.log({
-      cwd: process.cwd(),
-      parents: parents.map((x) => x.location),
-      packageDir: packageDir?.location,
-      repoDir: repoDir?.location,
-    });
+  logger.verbose({
+    cwd: process.cwd(),
+    parents: parents.map((x) => x.location),
+    packageDir: packageDir?.location,
+    repoDir: repoDir?.location,
+  });
 
   return {
     parents,
