@@ -3,6 +3,5 @@
   "private": true,
   "workspaces": ["packages/*", "templates/*"],
   "devDependencies": { "@types/bun": "latest" },
-  "peerDependencies": { "typescript": "^5.0.0" },
-  "packageManager": "yarn@4.1.1"
+  "peerDependencies": { "typescript": "^5.0.0" }
 }

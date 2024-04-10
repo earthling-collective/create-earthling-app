@@ -22,17 +22,16 @@ export async function initPackagePwa(name: string, options: InitOptions) {
     join(TEMPLATES_OUT_DIR, `./template-pwa/*`),
     join(process.cwd(), `./${name}/`)
   );
-  //rename folder
 
-  //
+  //enter target
   shell.cd(`./${name}`);
 
+  //start update package json
   const updatedPackage = JSON.parse(
     await readFile(`package.json`, {
       encoding: `utf-8`,
     })
   ) as PackageJson;
-
   updatedPackage.name = name;
   updatedPackage.version = "1.0.0-alpha.0";
   // remove unneeded fields
@@ -46,6 +45,7 @@ export async function initPackagePwa(name: string, options: InitOptions) {
     `./package.json`,
     await format(JSON.stringify(updatedPackage), { parser: "json" })
   );
+  //end update package.json
 
   logger.info(`✅ PWA package "${name}" initialized`);
 }
