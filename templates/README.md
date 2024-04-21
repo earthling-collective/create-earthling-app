@@ -1,1 +1,1 @@
-# ZabuKit Templates
+# @ecol/create Templates

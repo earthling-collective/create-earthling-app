@@ -1,5 +1,5 @@
 {
-  "name": "@zabukit/config",
+  "name": "@create-ecol/config",
   "private": true,
   "exports": {
     "./postcss": {},

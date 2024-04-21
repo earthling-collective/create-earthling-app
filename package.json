@@ -1,5 +1,5 @@
 {
-  "name": "zabukit-monorepo",
+  "name": "@create-ecol/repo",
   "private": true,
   "workspaces": ["packages/*", "templates/*"],
   "devDependencies": { "@types/bun": "latest" },
