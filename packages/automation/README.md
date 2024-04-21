@@ -1,3 +1,1 @@
-# cli
-
-this is like the shadcn cli
+# create-ecol automation
