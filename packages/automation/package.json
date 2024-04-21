@@ -1,10 +1,12 @@
 {
   "name": "@create-ecol/automation",
   "version": "1.0.0-canary.1",
-  "bugs": { "url": "https://github.com/sFrady20/earthling-ui/issues" },
+  "bugs": {
+    "url": "https://github.com/earthling-collective/create-ecol/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sFrady20/earthling-ui",
+    "url": "https://github.com/earthling-collective/create-ecol",
     "directory": "packages/automation"
   },
   "license": "MIT",
