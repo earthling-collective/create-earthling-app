@@ -30,4 +30,4 @@ jobs:
         run: bun install --immutable
 
       - name: Run templates testing
-        run: bun run --cwd packages/automation templates test
+        run: bun run templates test

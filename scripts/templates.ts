@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { cleanRepo } from "@/actions/clean-repo";
 import { generateTemplate } from "@/actions/generate-template";
 import { program } from "commander";

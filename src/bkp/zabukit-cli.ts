@@ -1,12 +1,11 @@
-#!/usr/bin/env node
-
 import { program } from "commander";
-import pkg from "../package.json";
-import { init } from "./actions/init";
+import pkg from "../../package.json";
+import { init } from "../actions/init";
+import { logger } from "../services/logger";
 
-console.log(`🧩 zabukit ${pkg.version}`);
+logger.info(`🌎 Create Earthling App ${pkg.version}`);
 
-program.name("🧩 zabukit").description("").version(pkg.version);
+program.name("🌎").description("").version(pkg.version);
 
 program
   .command("init")

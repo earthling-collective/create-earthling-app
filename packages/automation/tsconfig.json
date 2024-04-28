@@ -1,8 +1,0 @@
-{
-  "extends": "@zabukit/config/typescript/src",
-  "compilerOptions": {
-    "paths": {"@/*": ["./lib/*"]}
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
-}

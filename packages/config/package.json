@@ -1,9 +1,0 @@
-{
-  "name": "@create-ecol/config",
-  "private": true,
-  "exports": {
-    "./postcss": {},
-    "./babel": {},
-    "./typescript/*": "./tsconfig.*.json"
-  }
-}

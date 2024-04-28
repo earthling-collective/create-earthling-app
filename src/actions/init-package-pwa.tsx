@@ -3,7 +3,7 @@ import { analyzeHierarchy } from "./analyze-hierarchy";
 import { TEMPLATES_OUT_DIR } from "@/vars";
 import { join } from "path";
 import { readFile } from "fs/promises";
-import { PackageJson } from "type-fest";
+import { type PackageJson } from "type-fest";
 import { writeFile } from "fs/promises";
 import { format } from "prettier";
 import { logger } from "@/services/logger";

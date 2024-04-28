@@ -14,11 +14,7 @@ async function sortPackageJsons() {
 
   shell.cd(REPO_DIR);
 
-  const globbed = await glob([
-    "./package.json",
-    "./packages/*/package.json",
-    "templates/*/package.json",
-  ]);
+  const globbed = await glob(["./package.json", "templates/*/package.json"]);
 
   const result = await Promise.allSettled(
     globbed.map(async (x) => {

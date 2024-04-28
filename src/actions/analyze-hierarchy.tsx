@@ -6,11 +6,11 @@ import { join } from "path";
 import type { PackageJson, PartialDeep } from "type-fest";
 import { parse as parseYaml } from "yaml";
 
-type ZabuKitRc = PartialDeep<{}>;
+type EarthlingRc = PartialDeep<{}>;
 
 type Dir = {
   location: string;
-  rc: ZabuKitRc | null;
+  rc: EarthlingRc | null;
   repo: GitRepo | null;
   package: PackageJson | null;
 };
@@ -18,7 +18,7 @@ type Dir = {
 type GitRepo = {};
 
 export async function analyzeHierarchy() {
-  let combinedRc: ZabuKitRc = {};
+  let combinedRc: EarthlingRc = {};
 
   let repoDir = null as Dir | null;
   let packageDir = null as Dir | null;
@@ -27,7 +27,7 @@ export async function analyzeHierarchy() {
     await findUpMultiple(
       (dir) =>
         pathExistsSync(join(dir, "package.json")) ||
-        pathExistsSync(join(dir, ".zabukitrc")) ||
+        pathExistsSync(join(dir, ".earthlingrc")) ||
         pathExistsSync(join(dir, ".git/config"))
           ? dir
           : "",
@@ -43,7 +43,7 @@ export async function analyzeHierarchy() {
       };
 
       //parse zabukit runtime configuration
-      const rcPath = join(location, ".zabukitrc");
+      const rcPath = join(location, ".earthlingrc");
       if (existsSync(rcPath)) {
         const rc = parseYaml(readFileSync(rcPath).toString("utf-8"));
 

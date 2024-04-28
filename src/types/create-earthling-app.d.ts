@@ -5,3 +5,9 @@ declare type InitOptions = {
   cwd?: string;
   verbose?: boolean;
 };
+
+declare type GenerateTemplateOptions = {
+  repo?: boolean;
+  template?: "pwa" | "spa" | "app";
+  verbose?: boolean;
+};
