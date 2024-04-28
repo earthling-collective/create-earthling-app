@@ -1,6 +1,1 @@
-{
-  "name": "template-repo",
-  "workspaces": ["/packages/*"],
-  "devDependencies": { "@types/bun": "latest" },
-  "peerDependencies": { "typescript": "^5.0.0" }
-}
+{"name":"template-repo","devDependencies":{"@types/bun":"latest"},"peerDependencies":{"typescript":"^5.0.0"},"workspaces":["/packages/*"]}
