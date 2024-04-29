@@ -19,11 +19,13 @@
   "main": "dist/index.js",
   "bin": "dist/index.js",
   "files": ["dist", "README.md"],
+  "workspaces": ["templates/*"],
   "scripts": {
     "build": "bun scripts/build.ts",
     "dev": "bun src/index.ts",
     "start": "node dist/index.js"
   },
+  "dependencies": { "sort-package-json": "^2.10.0" },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/inquirer": "^9",

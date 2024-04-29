@@ -80,7 +80,7 @@ export async function initPackage(name: string, options: InitOptions) {
     //   return await initPackageSpa(name, options);
     default:
       throw new Error(
-        `Template "${template}" not found. Try using "ssr" or "spa".`
+        `Template "${template}" not found. Try using "pwa" or "spa".`
       );
   }
 }
