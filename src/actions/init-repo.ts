@@ -1,8 +1,8 @@
 import { analyzeHierarchy } from "./analyze-hierarchy";
-import shell from "shelljs";
 import { TEMPLATES_OUT_DIR } from "@/vars";
 import { join } from "path";
 import { logger } from "@/services/logger";
+import { cp } from "node:fs/promises";
 
 export async function initRepo(
   name: string,
@@ -19,7 +19,7 @@ export async function initRepo(
     );
 
   //
-  shell.cp("-r", join(TEMPLATES_OUT_DIR, "template-repo"), `./${name}`);
+  await cp(`${join(TEMPLATES_OUT_DIR, "template-repo")}`, `${`./${name}`}`);
 
   //
   logger.notice(

@@ -1,17 +1,19 @@
-import shell from "shelljs";
 import { TEMPLATES_DIR } from "@/vars";
 import { generateSpaTemplate } from "./generate-template-spa";
 import { generatePwaTemplate } from "./generate-template-pwa";
 import { generateAppTemplate } from "./generate-template-app";
 import { generateRepoTemplate } from "./generate-template-repo";
+import { logger } from "@/services/logger";
 
 export async function generateTemplate(options?: GenerateTemplateOptions) {
-  const { template, verbose } = options || {};
+  const { template } = options || {};
 
-  if (verbose) console.log(`Templates dir: ${TEMPLATES_DIR}`);
+  logger.info(`templates dir: ${TEMPLATES_DIR}`);
 
   if (template) {
-    shell.cd(TEMPLATES_DIR);
+    logger.info(`generating template "${template}"`);
+
+    process.chdir(`${TEMPLATES_DIR}`);
 
     switch (template.toLocaleLowerCase()) {
       case "pwa":
@@ -28,16 +30,18 @@ export async function generateTemplate(options?: GenerateTemplateOptions) {
         );
     }
   } else {
-    shell.cd(TEMPLATES_DIR);
+    logger.info(`generating all templates`);
+
+    process.chdir(`${TEMPLATES_DIR}`);
     await generateRepoTemplate(options);
 
-    shell.cd(TEMPLATES_DIR);
+    process.chdir(`${TEMPLATES_DIR}`);
     await generateSpaTemplate(options);
 
-    shell.cd(TEMPLATES_DIR);
+    process.chdir(`${TEMPLATES_DIR}`);
     await generateAppTemplate(options);
 
-    shell.cd(TEMPLATES_DIR);
+    process.chdir(`${TEMPLATES_DIR}`);
     await generatePwaTemplate(options);
   }
 }

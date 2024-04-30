@@ -2,18 +2,15 @@ import { join, relative } from "path";
 import { analyzeHierarchy } from "./analyze-hierarchy";
 import { minimatch } from "minimatch";
 import inquirer from "inquirer";
-import shell from "shelljs";
 import { logger } from "@/services/logger";
 import { initPackageSpa } from "./init-package-spa";
 import { initPackagePwa } from "./init-package-pwa";
 import { readdir } from "fs/promises";
 import { existsSync } from "fs";
+import { rm } from "node:fs/promises";
 
 export async function initPackage(name: string, options: InitOptions) {
   const { template = "default", ci } = options;
-
-  //TODO this makes it possible to test in dev, should remove though
-  shell.cd("../");
 
   const { packageDir } = await analyzeHierarchy();
   const targetDir = join(process.cwd(), `/${name}`);
@@ -66,7 +63,7 @@ export async function initPackage(name: string, options: InitOptions) {
         ).shouldDeleteDir;
 
     if (shouldDeleteInitDir) {
-      await shell.rm(`-rf`, targetDir);
+      await rm(`${targetDir}`, { recursive: true, force: true });
       logger.notice(`Content from "${targetDir}" has been deleted.`);
     }
   }

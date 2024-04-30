@@ -1,4 +1,3 @@
-import shell from "shelljs";
 import { resolve } from "path";
 import { readFile, writeFile } from "fs/promises";
 import micromatch from "micromatch";
@@ -37,10 +36,6 @@ const extraLibraries: Record<string, LibraryConfig> = {
   zod: {},
   zustand: {},
 };
-
-function exec(cmd: string) {
-  return new Promise((resolve) => shell.exec(cmd, resolve));
-}
 
 export async function updateTemplates() {
   await generate("ssr", {

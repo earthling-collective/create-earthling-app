@@ -1,5 +1,5 @@
 import { join } from "path";
-import { readFile, readdir, stat, mkdir, cp, rm } from "fs/promises";
+import { readFile, readdir, stat, mkdir, cp, rm } from "node:fs/promises";
 import { Stats, existsSync } from "fs";
 import colors from "colors";
 import { TEMPLATES_DIR, TEMPLATES_OUT_DIR } from "../vars";

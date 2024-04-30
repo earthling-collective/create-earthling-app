@@ -1,6 +1,8 @@
+declare type TemplateId = "pwa" | "spa" | "app";
+
 declare type InitOptions = {
   repo?: boolean;
-  template?: "spa" | "ssr";
+  template?: TemplateId;
   ci?: boolean;
   cwd?: string;
   verbose?: boolean;
@@ -8,6 +10,5 @@ declare type InitOptions = {
 
 declare type GenerateTemplateOptions = {
   repo?: boolean;
-  template?: "pwa" | "spa" | "app";
-  verbose?: boolean;
+  template?: TemplateId;
 };

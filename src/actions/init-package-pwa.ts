@@ -1,12 +1,10 @@
-import shell from "shelljs";
 import { analyzeHierarchy } from "./analyze-hierarchy";
 import { TEMPLATES_OUT_DIR } from "@/vars";
 import { join } from "path";
-import { readFile } from "fs/promises";
 import { type PackageJson } from "type-fest";
-import { writeFile } from "fs/promises";
 import { format } from "prettier";
 import { logger } from "@/services/logger";
+import { cp, mkdir, writeFile, readFile } from "node:fs/promises";
 
 export async function initPackagePwa(name: string, options: InitOptions) {
   const { ci } = options;
@@ -14,17 +12,17 @@ export async function initPackagePwa(name: string, options: InitOptions) {
   const {} = await analyzeHierarchy();
 
   //ensure target dir
-  shell.mkdir(`./${name}`);
+  await mkdir(`./${name}`);
 
   //copy template files
-  shell.cp(
-    `-r`,
+  await cp(
     join(TEMPLATES_OUT_DIR, `./template-pwa/*`),
-    join(process.cwd(), `./${name}/`)
+    join(process.cwd(), `./${name}/`),
+    { recursive: true }
   );
 
   //enter target
-  shell.cd(`./${name}`);
+  process.chdir(`./${name}`);
 
   //start update package json
   const updatedPackage = JSON.parse(

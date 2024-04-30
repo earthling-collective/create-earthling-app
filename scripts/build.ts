@@ -1,6 +1,6 @@
 import { importTemplates } from "@/actions/import-templates";
 import { logger } from "@/services/logger";
-import { OUT_DIR } from "@/vars";
+import { OUT_DIR, REPO_DIR } from "@/vars";
 
 Bun.build({
   entrypoints: ["./src/index.ts"],
